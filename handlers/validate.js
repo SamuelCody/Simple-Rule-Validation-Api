@@ -7,6 +7,15 @@ exports.validate = function (req, res, next) {
         const payload = req.body;
         const { rule, data } = payload;
 
+        //Check if an empty object is passed
+        if (!rule && !data) {
+            return res.status(400).json({
+                message: "Invalid JSON payload passed.",
+                status: "error",
+                data: null
+            });
+        }
+
         //rule and data field are required
         if (!rule) {
             return res.status(400).json({
